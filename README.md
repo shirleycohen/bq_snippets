@@ -1,1 +1,1 @@
-# bq_snippets
+# BigQuery Code Snippets
