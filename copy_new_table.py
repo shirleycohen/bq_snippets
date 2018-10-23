@@ -1,11 +1,11 @@
 from google.cloud import bigquery
 import datetime
 
-src_project_id ='scohen-firebase-sandbox'
-src_dataset_id = 'analytics_153293282'  
+src_project_id ='my_source_project'
+src_dataset_id = 'my_source_dataset'  
 
-dest_project_id = 'scohen-sandbox'
-dest_dataset_id = 'firebase_events'
+dest_project_id = 'my_destination_project'
+dest_dataset_id = 'my_destination_dataset'
 
 table_name_prefix = 'events_'
 todays_date = datetime.datetime.today()
