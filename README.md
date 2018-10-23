@@ -1,1 +1,1 @@
-# BigQuery Code Snippets
+### BigQuery Code Snippets
