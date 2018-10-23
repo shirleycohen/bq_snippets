@@ -1,15 +1,15 @@
 from google.cloud import bigquery
 import datetime
 
-src_project_id ='firebase-public-project'
-src_dataset_id = 'com_firebase_demo_IOS'  
+src_project_id ='my_source_project'
+src_dataset_id = 'my_source_dataset'  
 
-dest_project_id = 'scohen-sandbox'
-dest_dataset_id = 'firebase_app_events'
+dest_project_id = 'my_destination_project'
+dest_dataset_id = 'my_destination_dataset'
 
-table_name_prefix = 'app_events_'
-start_date = datetime.date(2018, 04, 04) # set of first date to copy
-end_date = datetime.date(2018, 05, 03) # set to last date to copy
+table_name_prefix = 'events_' # set to table name prefix
+start_date = datetime.date(2018, 06, 23) # set of first date to copy
+end_date = datetime.date(2018, 10, 23) # set to last date to copy
 
 config = bigquery.job.CopyJobConfig()
 config.write_disposition = "WRITE_TRUNCATE"
