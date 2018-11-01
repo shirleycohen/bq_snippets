@@ -1,10 +1,43 @@
 # Cloud Function that loads a CSV file as a BigQuery table
-# 
-# requirements.txt should contain the line:
+# Memory allocated: 1GB
+# Trigger: Cloud Storage
+# Event Type: Finalize/Create
+# Bucket: <your bucket>
+# Runtime: Python 3.7
+# Timeout: 120 seconds 
+# Function to execute: load_data
+#
+# requirements.txt must have the line:
 # google-cloud-bigquery
 
 from google.cloud import bigquery
 import logging
+
+default_dataset = 'your dataset' # set this to your default BQ dataset 
+
+def extract_dataset(file_name):
+    file_name_splits = file_name.split('_')
+    num_splits = len(file_name_splits)
+    if num_splits > 1:
+        logging.info('file_name has ' + str(num_splits) + ' splits')
+        dataset_name = file_name_splits[0].lower()
+    else:
+        dataset_name = default_dataset.lower()
+    return dataset_name
+
+def extract_table(file_name):
+    file_name_without_extension = file_name.rsplit('.', 1)[0]
+    logging.info('file_name_without_extension: ' + file_name_without_extension)
+    
+    file_name_splits = file_name_without_extension.split('_', 1)
+    num_splits = len(file_name_splits)
+    
+    if num_splits > 1:
+        table_name = file_name_splits[1]
+    else:
+        table_name = file_name_without_extension
+        
+    return table_name
 
 def load_data(data, context):
     
@@ -15,11 +48,13 @@ def load_data(data, context):
     file_name = data['name']
 
     # BQ variables
-    dataset_id = 'your_dataset'
-    table_name = file_name.rsplit('.', 1)[0]
+    dataset_name = extract_dataset(file_name)
+    logging.info('dataset_name: ' + dataset_name)
+    
+    table_name = extract_table(file_name)
     logging.info('table name: ' + table_name)
 
-    dataset_ref = client.dataset(dataset_id)
+    dataset_ref = client.dataset(dataset_name)
     table_ref = dataset_ref.table(table_name)  
 
     config = bigquery.job.LoadJobConfig()
