@@ -22,7 +22,7 @@ CREATE TABLE benchmarks.clusteredMedicare_providers(
 PARTITION BY empty_date
 CLUSTER BY nppes_provider_city; 
 
-- how to populate a clustered table from an existing table in BQ
+-- how to populate a clustered table from an existing table in BQ
 INSERT INTO benchmarks.clusteredMedicare_providers(npi, nppes_provider_last_org_name, nppes_provider_first_name,
  nppes_provider_city, nppes_provider_state, specialty_description, description_flag, drug_name, generic_name, 
  bene_count, total_claim_count, total_day_supply, total_drug_cost, bene_count_ge65, 
