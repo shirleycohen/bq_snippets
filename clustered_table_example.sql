@@ -1,6 +1,7 @@
 -- how to create a clustered table in BQ, which currently requires a date partition
 CREATE TABLE benchmarks.clusteredMedicare_providers(
- empty_date DATE, npi INT64, 
+ empty_date DATE, 
+ npi INT64, 
  nppes_provider_last_org_name STRING, 
  nppes_provider_first_name STRING,
  nppes_provider_city STRING, 
@@ -20,7 +21,7 @@ CREATE TABLE benchmarks.clusteredMedicare_providers(
  total_day_supply_ge65 INT64, 
  total_drug_cost_ge65 FLOAT64) 
 PARTITION BY empty_date
-CLUSTER BY nppes_provider_city; 
+CLUSTER BY nppes_provider_city;
 
 -- how to populate a clustered table from an existing table in BQ
 INSERT INTO benchmarks.clusteredMedicare_providers(npi, nppes_provider_last_org_name, nppes_provider_first_name,
